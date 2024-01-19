@@ -1,7 +1,7 @@
 # Eatcode
 https://github.com/r4c3/eatcode/assets/63271957/476a1ff8-32f7-42f2-a2dd-9ca8d52e1b01
 
-🍖 EatCode is a food-themed SWE technical interview training website. Unlike popular competitors like 🤮 LeetCode, 💩 HackerRank, or 🤥 CodeSignal, our site gives users an immersive experience with our food-themed DSA problems, 3D UI, and faster solution testing. This project was developed in association with GT Web Dev.
+EatCode is a food-themed SWE technical interview training website. Unlike competitors LeetCode (🤮), HackerRank (💩), and CodeSignal (🤥), our site gives users an immersive experience with our food-themed DSA problems, 3D UI, and colloquially faster solution testing. This project was developed in association with WebDev @ GT.
 
 ## 💻 Techstack
 [![JavaScipt](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white)]()
