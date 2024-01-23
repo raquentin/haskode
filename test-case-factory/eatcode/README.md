@@ -1,5 +1,5 @@
 # Eatcode
-https://github.com/r4c3/eatcode/assets/63271957/476a1ff8-32f7-42f2-a2dd-9ca8d52e1b01
+https://github.com/eatcoders/eatcode/assets/63271957/cb5a896c-097c-47cf-befe-e2ce0fc20f9b
 
 EatCode is a food-themed SWE technical interview training website. Unlike competitors LeetCode (🤮), HackerRank (💩), and CodeSignal (🤥), our site gives users an immersive experience with our food-themed DSA problems, 3D UI, and colloquially faster solution testing. This project was developed in association with WebDev @ GT.
 
