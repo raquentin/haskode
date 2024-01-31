@@ -1,5 +1,5 @@
 # Dexter
-This is a sub-repo of the [main Eatcode repository](https://github.com/eatcoders/the-kitchen). Look there for more general information.
+This is a sub-repo of the [main Eatcode repository](https://github.com/eatcoders/eatcode). Look there for more general information.
 
 
 <img src="https://i.imgur.com/p1WW7h4.png" width="400"/>
