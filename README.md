@@ -11,7 +11,7 @@ I'm picking this project back up and am working to deploy it to [eatcode.dev](ht
 - User accounts via Google Auth to track progress and collect Beef.
 - Submit solutions in C++, Java, or Python.
 ## Technical Features
-- Distributed worker network to containerize and run user submissions (see [dexter](https://github.com/eatcoders/dexter)).
-- Admin workflow for creating new problems and auto-generating test cases and related wrappers (see [test-case-factory](https://github.com/eatcoders/test-case-factory)).
+- Distributed worker network to containerize and run user submissions (dexter).
+- Admin workflow for creating new problems and auto-generating test cases and related wrappers (test-case-factory).
 ## Contributing
 To contribute, see [the wiki](https://github.com/skrusenti/skru/wiki).
