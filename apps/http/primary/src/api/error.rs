@@ -35,7 +35,7 @@ pub enum Error {
 
     /// 500 Internal Server Error for anyhow errors
     #[error("internal server error")]
-    Anyhow(#[from] anywhow::Error),
+    Anyhow(#[from] anyhow::Error),
 }
 
 impl Error {

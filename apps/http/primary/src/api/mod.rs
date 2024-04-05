@@ -9,10 +9,7 @@ use std::{
 };
 use tokio::net::TcpListener;
 
-mod auth;
 mod error;
-mod extractor;
-mod types;
 
 pub use error::{Error, ResultExt};
 
@@ -41,14 +38,14 @@ pub async fn serve(config: Config, db: PgPool) -> anyhow::Result<()> {
     let addr = SocketAddr::new(Ipv4Addr::LOCALHOST.into(), 3003);
     let listener = TcpListener::bind(addr).await?;
     axum::serve(listener, app)
-        .with_graceful_shutdown(tokio::signal::ctrl_c())
-        .await;
+        .with_graceful_shutdown(shutdown_signal())
+        .await
         .context("server error")
 }
 
 fn api_router(api_context: ApiContext) -> Router {
     Router::new()
-        .merge(auth::router())
+        //.merge(auth::router())
         .layer((
             SetSensitiveHeadersLayer::new([AUTHORIZATION]),
             CompressionLayer::new(),
@@ -57,4 +54,30 @@ fn api_router(api_context: ApiContext) -> Router {
             CatchPanicLayer::new(),
         ))
         .with_state(api_context)
+}
+
+async fn shutdown_signal() {
+    use tokio::signal;
+
+    let ctrl_c = async {
+        signal::ctrl_c()
+            .await
+            .expect("failed to install Ctrl+C handler");
+    };
+
+    #[cfg(unix)]
+    let terminate = async {
+        signal::unix::signal(signal::unix::SignalKind::terminate())
+            .expect("failed to install signal handler")
+            .recv()
+            .await;
+    };
+
+    #[cfg(not(unix))]
+    let terminate = std::future::pending::<()>();
+
+    tokio::select! {
+        _ = ctrl_c => {},
+        _ = terminate => {},
+    }
 }

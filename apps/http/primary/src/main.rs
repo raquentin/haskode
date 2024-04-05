@@ -1,7 +1,6 @@
 use anyhow::Context;
 use clap::Parser;
 use sqlx::postgres::PgPoolOptions;
-use axum::{routing::get, Router};
 
 use haskode_primary_http::config::Config;
 use haskode_primary_http::api;
@@ -22,7 +21,7 @@ async fn main() -> anyhow::Result<()> {
 
     //sqlx::migrate!().run(&db).await?;
 
-    http::serve(config, db).await?;
+    api::serve(config, db).await?;
 
     Ok(())
 }
