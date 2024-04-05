@@ -1,8 +1,39 @@
 [package]
-name = "primary"
+name = "haskode-primary-http"
 version = "0.1.0"
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+publish = false
+authors = [
+    "Race Williams <race@racewilliams.com>"
+]
 
 [dependencies]
+# common types shared w/ worker
+common = { path = "../common" }
+
+# core deps: runtime, HTTP, db
+tokio = { version = "1.37.0", features = ["full"] }
+axum = { version = "0.7.5", features = ["tower-log"] }
+sqlx = { version = "0.7.4", features = ["runtime-tokio", "tls-native-tls", "postgres", "uuid", "time"] }
+tower = "0.4.13"
+tower-http = { version = "0.5.2", features = [
+    "catch-panic",
+    "compression-full",
+    "sensitive-headers",
+    "timeout",
+    "trace",
+] }
+
+# config and env
+clap = { version = "4.5.4", features = ["derive", "env"] }
+dotenvy = "0.15.7"
+
+# data and types
+uuid = "1.8.0"
+serde = { version = "1.0.197", features = ["derive"] }
+
+# util
+anyhow = "1.0.81"
+thiserror = "1.0.58"
+log = "0.4.21"
+env_logger = "0.11.3"
