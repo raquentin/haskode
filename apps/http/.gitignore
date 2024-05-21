@@ -1,4 +1,2 @@
-build/
-target/
-Cargo.lock
-.env
+.stack-work/
+*~
