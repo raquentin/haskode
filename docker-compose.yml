@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  haskode-web-client:
+    build: ./haskode-web-client
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_BACKEND_URL=http://localhost:8080
+
+  haskode-http-primary:
+    build: ./haskode-http-primary
+    ports:
+      - "8080:8080"
+    environment:
+      - GITHUB_CLIENT_ID=your_client_id
+      - GITHUB_CLIENT_SECRET=your_client_secret
+
+  haskode-http-worker:
+    build: ./haskode-http-worker
+    ports:
+      - "8081:8081"
