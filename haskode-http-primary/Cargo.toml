@@ -1,0 +1,27 @@
+[package]
+name = "haskode-http-primary"
+version = "0.1.0"
+edition = "2021"
+publish = false
+authors = ["Raquentin <race@raquent.in>"]
+
+[dependencies]
+anyhow = "1.0.86"
+axum = { version = "0.7.5", features = ["tower-log"] }
+clap = { version = "4.5.10", features = ["derive", "env"] }
+dotenvy = "0.15.7"
+env_logger = "0.11.4"
+log = "0.4.22"
+serde = { version = "1.0.188", features = ["derive"] }
+sqlx = { version = "0.7.3", features = ["runtime-tokio-native-tls", "postgres", "uuid", "chrono"] }
+thiserror = "1.0.63"
+tokio = { version = "1.34.0", features = ["macros", "rt-multi-thread", "signal"] }
+tower = "0.4.13"
+tower-http = { version = "0.4.3", features = [
+    "catch-panic",
+    "compression-full",
+    "sensitive-headers",
+    "timeout",
+    "trace",
+] }
+uuid = { version = "1.4.1", features = ["serde"] }

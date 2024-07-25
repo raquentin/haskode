@@ -1,1 +1,0 @@
-# haskode-http-worker

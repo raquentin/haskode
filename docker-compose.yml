@@ -1,4 +1,5 @@
 version: '3.8'
+
 services:
   haskode-web-client:
     build: ./haskode-web-client
@@ -10,12 +11,26 @@ services:
   haskode-http-primary:
     build: ./haskode-http-primary
     ports:
-      - "8080:8080"
+      - "8000:8000"
     environment:
-      - GITHUB_CLIENT_ID=your_client_id
-      - GITHUB_CLIENT_SECRET=your_client_secret
+      - DATABASE_URL=postgres://postgres:password@db/haskode
+      - GITHUB_CLIENT_ID=a
+      - GITHUB_CLIENT_SECRET=b
 
   haskode-http-worker:
     build: ./haskode-http-worker
+    environment:
+      - HTTP_PRIMARY_URL=http://primary-server:8000
+    depends_on:
+      - primary-server
     ports:
       - "8081:8081"
+
+  db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=haskode
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    volumes:
+      -db-data:/var/lib/postgresql/data
