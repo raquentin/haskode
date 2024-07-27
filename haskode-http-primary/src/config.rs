@@ -11,10 +11,4 @@ pub struct Config {
 
     #[clap(long, env = "POSTGRES_URL")]
     pub postgres_url: String,
-
-    #[clap(long, env = "POSTGRES_USER")]
-    pub postgres_user: String,
-
-    #[clap(long, env = "POSTGRES_PASSWORD")]
-    pub postgres_password: String,
 }
