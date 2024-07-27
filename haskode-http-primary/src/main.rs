@@ -25,16 +25,16 @@ async fn main() -> anyhow::Result<()> {
         .await
         .context("Failed to connect to database")?;
 
-    //sqlx::migrate!("../../migrations").run(&db).await?;
+    sqlx::migrate!().run(&db).await?;
 
     let github_client_id = ClientId::new(config.github_client_id.clone());
     let github_client_secret = ClientSecret::new(config.github_client_secret.clone());
     let auth_url = AuthUrl::new("https://github.com/login/oauth/authorize".to_string())
-        .expect("Invalid authorization endpoint URL");
+        .expect("invalid authorization endpoint URL");
     let token_url = TokenUrl::new("https://github.com/login/oauth/access_token".to_string())
-        .expect("Invalid token endpoint URL");
+        .expect("invalid token endpoint URL");
     let redirect_url =
-        RedirectUrl::new("http://localhost:8080".to_string()).expect("Invalid redirect URL");
+        RedirectUrl::new("http://localhost:8080".to_string()).expect("invalid redirect URL");
     let github = BasicClient::new(
         github_client_id,
         Some(github_client_secret),
