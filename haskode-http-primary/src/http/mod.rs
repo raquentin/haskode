@@ -1,5 +1,6 @@
 use crate::config::Config;
 use anyhow::Context;
+use oauth2::basic::BasicClient;
 use axum::{http::header::AUTHORIZATION, Router};
 use sqlx::PgPool;
 use std::{
@@ -9,6 +10,7 @@ use std::{
 };
 use tokio::net::TcpListener;
 
+mod oauth;
 mod error;
 
 pub use error::{Error, ResultExt};
@@ -24,12 +26,14 @@ use tower_http::{
 pub(crate) struct ApiContext {
     config: Arc<Config>,
     db: PgPool,
+    github: Arc<BasicClient>,
 }
 
-pub async fn serve(config: Config, db: PgPool) -> anyhow::Result<()> {
+pub async fn serve(config: Config, db: PgPool, github: BasicClient) -> anyhow::Result<()> {
     let api_context = ApiContext {
         config: Arc::new(config),
         db,
+        github: Arc::new(github),
     };
 
     let app = api_router(api_context);
@@ -44,13 +48,14 @@ pub async fn serve(config: Config, db: PgPool) -> anyhow::Result<()> {
 
 fn api_router(api_context: ApiContext) -> Router {
     Router::new()
-        // .layer((
-        //     SetSensitiveHeadersLayer::new([AUTHORIZATION]),
-        //     CompressionLayer::new(),
-        //     TraceLayer::new_for_http().on_failure(()),
-        //     TimeoutLayer::new(Duration::from_secs(30)),
-        //     CatchPanicLayer::new(),
-        // ))
+        .merge(oauth::router())
+        .layer((
+            SetSensitiveHeadersLayer::new([AUTHORIZATION]),
+            CompressionLayer::new(),
+            TraceLayer::new_for_http().on_failure(()),
+            TimeoutLayer::new(Duration::from_secs(30)),
+            CatchPanicLayer::new(),
+        ))
         .with_state(api_context)
 }
 
