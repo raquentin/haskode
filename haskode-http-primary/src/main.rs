@@ -13,7 +13,10 @@ async fn main() -> anyhow::Result<()> {
 
     let config = Config::parse();
 
-    let connection_string = format!("postgres://{}:{}@localhost:5432/{}", &config.postgres_user, &config.postgres_password, &config.postgres_user);
+    let connection_string = format!(
+        "postgres://{}:{}@localhost:5432/{}",
+        &config.postgres_user, &config.postgres_password, &config.postgres_user
+    );
 
     let db = PgPoolOptions::new()
         .max_connections(20)
