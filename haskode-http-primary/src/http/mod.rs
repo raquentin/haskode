@@ -1,5 +1,6 @@
 use crate::config::Config;
 use anyhow::Context;
+use oauth::OAuthState;
 use oauth2::basic::BasicClient;
 use axum::{http::header::AUTHORIZATION, Router};
 use sqlx::PgPool;
@@ -9,9 +10,12 @@ use std::{
     time::Duration,
 };
 use tokio::net::TcpListener;
+use tokio::sync::Mutex;
+
+mod error;
 
 mod oauth;
-mod error;
+mod user;
 
 pub use error::{Error, ResultExt};
 
@@ -24,16 +28,22 @@ use tower_http::{
 
 #[derive(Clone)]
 pub(crate) struct ApiContext {
-    config: Arc<Config>,
-    db: PgPool,
-    github: Arc<BasicClient>,
+    pub config: Arc<Config>,
+    pub db: PgPool,
+    pub github: OAuthState,
 }
 
 pub async fn serve(config: Config, db: PgPool, github: BasicClient) -> anyhow::Result<()> {
+
+    let github = OAuthState {
+        client: Arc::new(github),
+        auth_session: Arc::new(Mutex::new(None)),
+    };
+
     let api_context = ApiContext {
         config: Arc::new(config),
         db,
-        github: Arc::new(github),
+        github,
     };
 
     let app = api_router(api_context);
