@@ -3,6 +3,7 @@ use anyhow::Context;
 use oauth::OAuthState;
 use oauth2::basic::BasicClient;
 use axum::{http::header::AUTHORIZATION, Router};
+use axum::routing::get;
 use sqlx::PgPool;
 use std::{
     net::{Ipv4Addr, SocketAddr},
@@ -58,6 +59,7 @@ pub async fn serve(config: Config, db: PgPool, github: BasicClient) -> anyhow::R
 
 fn api_router(api_context: ApiContext) -> Router {
     Router::new()
+        .route("/", get(|| async { "hello" }))
         .merge(oauth::router())
         .layer((
             SetSensitiveHeadersLayer::new([AUTHORIZATION]),

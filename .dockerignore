@@ -1,0 +1,33 @@
+# flyctl launch added from .gitignore
+**/*/target
+**/*/vendor
+**/*/Cargo.lock
+**/*/.env
+**/.env
+
+**/**/*.rs.bk
+**/.env
+
+# flyctl launch added from haskode-web-client/.gitignore
+haskode-web-client/**/node_modules
+
+# Output
+haskode-web-client/**/.output
+haskode-web-client/**/.vercel
+haskode-web-client/.svelte-kit
+haskode-web-client/build
+
+# OS
+haskode-web-client/**/.DS_Store
+haskode-web-client/**/Thumbs.db
+
+# Env
+haskode-web-client/**/.env
+haskode-web-client/**/.env.*
+!haskode-web-client/**/.env.example
+!haskode-web-client/**/.env.test
+
+# Vite
+haskode-web-client/**/vite.config.js.timestamp-*
+haskode-web-client/**/vite.config.ts.timestamp-*
+fly.toml

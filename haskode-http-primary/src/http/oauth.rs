@@ -15,7 +15,9 @@ use tokio::sync::Mutex;
 use crate::http::user;
 
 pub(crate) fn router() -> Router<ApiContext> {
-    Router::new().route("/auth/github", get(auth_github))
+    Router::new()
+        .route("/auth/github", get(auth_github))
+        .route("/auth/github-callback", get(auth_callback))
 }
 
 #[derive(Deserialize)]

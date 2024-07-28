@@ -1,6 +1,12 @@
 version: '3.9'
 
 services:
+  http-primary:
+    build: ./haskode-http-primary
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
   db:
     image: postgres:latest
     environment:
